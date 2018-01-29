@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>The Launchpad</title>
+	{% load static %}
+	<link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+	<link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet">
+	<link href="{% static 'css/datepicker3.css'%}" rel="stylesheet">
+	<link href="{% static 'css/styles.css'%}" rel="stylesheet">
+	
+	<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
+	<!--Custom Font-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse"><span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span></button>
+						<div class="logo-section">
+                        	<img src="{% static 'img/logo.png'%}">
+                        </div>
+				<ul class="nav navbar-top-links navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+						<em class="fa fa-envelope"></em><span class="label label-danger">15</span>
+					</a>
+					</li>
+					<li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+						<em class="fa fa-bell"></em><span class="label label-info">5</span>
+					</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /.container-fluid -->
+	</nav>
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<div class="profile-sidebar">
+			<div class="profile-userpic">
+				<img src="{% static 'img/profile.jpg'%}" class="img-responsive" alt="">
+			</div>
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">Username</div>
+				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="divider"></div>
+		<form role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search">
+			</div>
+		</form>
+		<ul class="nav menu">
+			<li class="active"><a href="#"><em class="fa fa-dashboard">&nbsp;</em> Add Feature</a></li>
+			<li><a href="#table"><em class="fa fa-navicon">&nbsp;</em> Features</a></li>
+			<li><a href="#"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+		</ul>
+	</div><!--/.sidebar-->
+		
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Features</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Features</h1>
+            </div>
+		</div><!--/.row-->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="mainpanel">
+            <div class="content-section">
+		<div class="td-space clearfix">
+			<div class="fieldset">
+				<h4>Add Feature</h4>
+			</div>
+			<div class="form-horizontal list-filter">
+				<span class='errorstyle' data-bind=value.error-add></span>
+				<div class="form-group">
+					<div class="col-sm-4 col-md-3 list">
+						<label class="" for="name">Title</label>
+						<input for="title_val" type="text" name="title" data-bind="value:title" class="form-control" placeholder="Enter Title ">
+					</div>
+					<div class="col-sm-4 col-md-3 list">
+						<label class="" for="name">Client Name</label>
+						<div class="">
+							<select class="form-control" data-bind="options:clients, optionsValue:'id', optionsText:'client',value:client_id,  optionsCaption: 'Select Client Name'"></select>
+						</div>
+					</div>
+                    <div class="col-sm-4 col-md-3 list">
+						<label class="" for="name">Client Priority</label>
+						<input type="text" name="priority" class="form-control" data-bind="value:priority" min=1 placeholder="Enter Priority">
+					</div>
+                    <div class="col-sm-4 col-md-3 list">
+						<label class="" for="name">Target Date</label>
+						<div class="row">
+							<div class="col-sm-10">
+                            	<input id="target_date" type="text" placeholder="Target Date" value="" data-bind="value:target_date" class="form-control">
+							</div>
+						 </div>
+					</div>
+                   <div class="col-sm-4 col-md-3 list">
+						<label class="" for="name">Product Area</label>
+						<div class="">
+							<select class="form-control" id="name" data-bind="options:products, optionsValue:'id', optionsText:'product',value:product_id,  optionsCaption: 'Select Product Area'"></select>
+							<span class="mandatory"></span>
+						</div>
+					</div>
+                   <div class="col-sm-4 col-md-3 list">
+						<label class="" for="name">Description</label>
+						<textarea name="desc" class="form-control" data-bind="value:desc" placeholder="Enter Description "></textarea>
+					</div>
+				</div>
+				<div class="btn-size">			  		
+					<a href="#"><button type="submit" data-bind="click:submit" class="btn btn-primary">Submit</button></a>
+					<!--<a href="#"><button type="submit" data-bind="click:submit" class="btn btn-primary btn-default">Clear</button></a>-->
+				</div>
+			</div>
+			
+		</div>
+				<span class='error' data-bind="value: error_list"></span>
+				<div id="table" class="table-responsive">
+                  <table id="requests" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                     <thead>
+                        <tr>
+                           <th>Title</th>
+                           <th>Description</th>
+                           <th>Client Name</th>
+						   <th>Client Priority </th>
+                           <th>Target Date</th>
+                           <th>Product Area</th>
+						   <th>Status</th>
+                        </tr>
+                     </thead>
+                     <tbody data-bind="foreach: feature_request">
+						<tr>
+							<td data-bind="text: Title"></td>
+							<td data-bind="text: Desc"></td>
+							<td data-bind="text: Client"></td>
+							<td data-bind="text: Priority"></td>
+							<td data-bind="text: TargetDate"></td>
+							<td data-bind="text: ProductArea"></td>
+							<td data-bind="text: Status"></td>
+						</tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+			</div>
+		</div><!--/.row-->
+		
+	</div>	<!--/.main-->
+	<script src="{% static 'js/jquery-1.11.1.min.js'%}"></script>
+	<script src="{% static 'js/knockout.validation.js'%}"></script>
+	<script type='text/javascript' src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js'></script>
+	<script type='text/javascript' src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js'></script>
+	<script src="{% static 'js/feature_knockout.js'%}"></script>
+	<script src="{% static 'js/bootstrap.min.js'%}"></script>
+	<script src="{% static 'js/chart.min.js'%}"></script>
+	<script src="{% static 'js/chart-data.js'%}"></script>
+	<script src="{% static 'js/easypiechart.js'%}"></script>
+	<script src="{% static 'js/easypiechart-data.js'%}"></script>
+	<script src="{% static 'js/bootstrap-datepicker.js'%}"></script>
+	<script src="{% static 'js/custom.js'%}"></script>
+
+	<script>
+    	$(document).ready(function() {
+				$('#requests').DataTable();
+				$( "#target_date" ).datepicker({format: "yyyy-mm-dd"});
+			} );
+    </script>
+		
+</body>
+</html>
